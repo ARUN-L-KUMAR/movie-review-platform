@@ -33,11 +33,21 @@ searchInput.addEventListener('keypress', (e) => {
 
 closeButton.addEventListener('click', () => {
     movieModal.classList.add('hidden');
+    // Add animation when closing modal
+    movieModal.style.opacity = '0';
+    setTimeout(() => {
+        movieModal.classList.add('hidden');
+        movieModal.style.opacity = '1';
+    }, 300);
 });
 
 window.addEventListener('click', (e) => {
     if (e.target === movieModal) {
-        movieModal.classList.add('hidden');
+        movieModal.style.opacity = '0';
+        setTimeout(() => {
+            movieModal.classList.add('hidden');
+            movieModal.style.opacity = '1';
+        }, 300);
     }
 });
 
@@ -46,6 +56,19 @@ starRating.addEventListener('click', (e) => {
     if (e.target.classList.contains('star')) {
         const rating = parseInt(e.target.getAttribute('data-rating'));
         setSelectedRating(rating);
+        
+        // Add animation to stars
+        const stars = starRating.querySelectorAll('.star');
+        stars.forEach(star => {
+            star.style.transform = 'scale(1)';
+        });
+        
+        setTimeout(() => {
+            e.target.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                e.target.style.transform = 'scale(1)';
+            }, 200);
+        }, 50);
     }
 });
 
@@ -66,6 +89,12 @@ async function searchMovies() {
     loadingIndicator.classList.remove('hidden');
     movieResults.innerHTML = '';
     
+    // Add animation to results container
+    movieResults.style.opacity = '0';
+    setTimeout(() => {
+        movieResults.style.opacity = '1';
+    }, 300);
+    
     try {
         const response = await fetch(`${API_URL}&s=${encodeURIComponent(searchTerm)}`);
         const data = await response.json();
@@ -75,8 +104,8 @@ async function searchMovies() {
         } else {
             movieResults.innerHTML = `
                 <div class="placeholder">
-                    <i class="fas fa-search fa-3x"></i>
-                    <p>No movies found. Please try another search term.</p>
+                    <i class="fas fa-search fa-4x"></i>
+                    <p>No movies found. Please try another search term.<br><small>Try searching for popular movies like "Inception" or "The Matrix"</small></p>
                 </div>
             `;
         }
@@ -84,8 +113,8 @@ async function searchMovies() {
         console.error('Error fetching movie data:', error);
         movieResults.innerHTML = `
             <div class="placeholder">
-                <i class="fas fa-exclamation-triangle fa-3x"></i>
-                <p>Error fetching movies. Please try again later.</p>
+                <i class="fas fa-exclamation-triangle fa-4x"></i>
+                <p>Error fetching movies. Please try again later.<br><small>Check your internet connection</small></p>
             </div>
         `;
         showToast('Error fetching movies. Please try again later.', 'error');
@@ -99,19 +128,22 @@ async function searchMovies() {
 function displayMovieResults(movies) {
     movieResults.innerHTML = '';
     
-    movies.forEach(movie => {
+    movies.forEach((movie, index) => {
         const movieCard = document.createElement('div');
         movieCard.className = 'movie-card';
         
+        // Add animation delay for each card
+        movieCard.style.animationDelay = `${index * 0.1}s`;
+        
         // Handle missing poster
-        const poster = movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Image';
+        const poster = movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450/cccccc/ffffff?text=No+Image';
         
         movieCard.innerHTML = `
-            <img src="${poster}" alt="${movie.Title}" class="movie-poster" onerror="this.src='https://via.placeholder.com/300x450?text=No+Image'">
+            <img src="${poster}" alt="${movie.Title}" class="movie-poster" onerror="this.src='https://via.placeholder.com/300x450/cccccc/ffffff?text=No+Image'">
             <div class="movie-info">
                 <h3 class="movie-title">${movie.Title}</h3>
-                <p class="movie-year">${movie.Year}</p>
-                <p class="movie-plot">${movie.Type}</p>
+                <p class="movie-year"><i class="fas fa-calendar-alt"></i> ${movie.Year}</p>
+                <p class="movie-plot"><i class="fas fa-tag"></i> ${movie.Type}</p>
                 <button class="details-button" data-imdbid="${movie.imdbID}">
                     <i class="fas fa-info-circle"></i> View Details
                 </button>
@@ -149,8 +181,12 @@ async function showMovieDetails(imdbID) {
             updateFavoriteButton(imdbID);
             updateWatchlistButton(imdbID);
             
-            // Show modal
+            // Show modal with animation
             movieModal.classList.remove('hidden');
+            movieModal.style.opacity = '0';
+            setTimeout(() => {
+                movieModal.style.opacity = '1';
+            }, 50);
         } else {
             showToast('Error loading movie details', 'error');
         }
@@ -165,26 +201,26 @@ function displayMovieDetails(movie, imdbID) {
     const movieDetails = document.getElementById('movieDetails');
     
     // Handle missing poster
-    const poster = movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/200x300?text=No+Image';
+    const poster = movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/250x370/cccccc/ffffff?text=No+Image';
     
     movieDetails.innerHTML = `
         <div class="movie-details-container">
             <div class="movie-details-header">
-                <img src="${poster}" alt="${movie.Title}" class="movie-details-poster" onerror="this.src='https://via.placeholder.com/200x300?text=No+Image'">
+                <img src="${poster}" alt="${movie.Title}" class="movie-details-poster" onerror="this.src='https://via.placeholder.com/250x370/cccccc/ffffff?text=No+Image'">
                 <div class="movie-details-info">
                     <h2 class="movie-details-title">${movie.Title}</h2>
-                    <p class="movie-details-year">${movie.Year} • ${movie.Runtime || 'N/A'} • ${movie.Rated || 'N/A'}</p>
+                    <p class="movie-details-year"><i class="fas fa-calendar-alt"></i> ${movie.Year} • <i class="fas fa-clock"></i> ${movie.Runtime || 'N/A'} • <i class="fas fa-user"></i> ${movie.Rated || 'N/A'}</p>
                     <p class="movie-details-plot">${movie.Plot}</p>
                     <p class="movie-details-rating"><i class="fas fa-star"></i> IMDb Rating: ${movie.imdbRating || 'N/A'}/10</p>
                     <div class="movie-details-meta">
-                        <p><strong>Genre:</strong> ${movie.Genre || 'N/A'}</p>
-                        <p><strong>Director:</strong> ${movie.Director || 'N/A'}</p>
-                        <p><strong>Writer:</strong> ${movie.Writer || 'N/A'}</p>
-                        <p><strong>Actors:</strong> ${movie.Actors || 'N/A'}</p>
-                        <p><strong>Language:</strong> ${movie.Language || 'N/A'}</p>
-                        <p><strong>Country:</strong> ${movie.Country || 'N/A'}</p>
-                        <p><strong>Awards:</strong> ${movie.Awards || 'N/A'}</p>
-                        <p><strong>Box Office:</strong> ${movie.BoxOffice || 'N/A'}</p>
+                        <p><strong><i class="fas fa-theater-masks"></i> Genre:</strong> ${movie.Genre || 'N/A'}</p>
+                        <p><strong><i class="fas fa-video"></i> Director:</strong> ${movie.Director || 'N/A'}</p>
+                        <p><strong><i class="fas fa-pen-fancy"></i> Writer:</strong> ${movie.Writer || 'N/A'}</p>
+                        <p><strong><i class="fas fa-users"></i> Actors:</strong> ${movie.Actors || 'N/A'}</p>
+                        <p><strong><i class="fas fa-language"></i> Language:</strong> ${movie.Language || 'N/A'}</p>
+                        <p><strong><i class="fas fa-globe-americas"></i> Country:</strong> ${movie.Country || 'N/A'}</p>
+                        <p><strong><i class="fas fa-award"></i> Awards:</strong> ${movie.Awards || 'N/A'}</p>
+                        <p><strong><i class="fas fa-money-bill-wave"></i> Box Office:</strong> ${movie.BoxOffice || 'N/A'}</p>
                     </div>
                 </div>
             </div>
@@ -247,6 +283,12 @@ function submitUserReview() {
     displayUserReviews(selectedMovieId);
     
     showToast('Review submitted successfully!', 'success');
+    
+    // Add animation to submit button
+    submitReview.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+        submitReview.style.transform = 'scale(1)';
+    }, 200);
 }
 
 // Save Review to Local Storage
@@ -274,7 +316,7 @@ function displayUserReviews(movieId) {
     
     if (reviews.length === 0) {
         userReviewsContainer.innerHTML = `
-            <h3>User Reviews:</h3>
+            <h3><i class="fas fa-comments"></i> User Reviews</h3>
             <p>No reviews yet. Be the first to review this movie!</p>
         `;
         return;
@@ -283,21 +325,22 @@ function displayUserReviews(movieId) {
     // Sort reviews by date (newest first)
     reviews.sort((a, b) => b.id - a.id);
     
-    let reviewsHTML = '<h3>User Reviews:</h3>';
+    let reviewsHTML = '<h3><i class="fas fa-comments"></i> User Reviews</h3>';
     reviewsHTML += '<div class="user-reviews-list">';
     
-    reviews.forEach(review => {
+    reviews.forEach((review, index) => {
         // Create star display for rating
         let starsHTML = '';
         for (let i = 1; i <= 5; i++) {
             starsHTML += `<span class="${i <= review.rating ? 'star selected' : 'star'}">&#9733;</span>`;
         }
         
+        // Add animation delay for each review
         reviewsHTML += `
-            <div class="review-card">
+            <div class="review-card" style="animation-delay: ${index * 0.1}s;">
                 <div class="review-rating">${starsHTML}</div>
                 <p class="review-text">${review.text}</p>
-                <p class="review-date">Posted on ${review.date}</p>
+                <p class="review-date"><i class="fas fa-clock"></i> Posted on ${review.date}</p>
             </div>
         `;
     });
@@ -323,6 +366,12 @@ function toggleFavorite() {
         favoriteButton.innerHTML = '<i class="far fa-heart"></i> Add to Favorites';
         favoriteButton.classList.remove('added');
         showToast('Removed from favorites', 'success');
+        
+        // Add animation
+        favoriteButton.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            favoriteButton.style.transform = 'scale(1)';
+        }, 200);
     } else {
         // Add to favorites
         favorites.push({
@@ -335,6 +384,12 @@ function toggleFavorite() {
         favoriteButton.innerHTML = '<i class="fas fa-heart"></i> Remove from Favorites';
         favoriteButton.classList.add('added');
         showToast('Added to favorites!', 'success');
+        
+        // Add animation
+        favoriteButton.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            favoriteButton.style.transform = 'scale(1)';
+        }, 200);
     }
     
     // Update favorites display
@@ -358,6 +413,12 @@ function toggleWatchlist() {
         watchlistButton.innerHTML = '<i class="far fa-bookmark"></i> Add to Watchlist';
         watchlistButton.classList.remove('added');
         showToast('Removed from watchlist', 'success');
+        
+        // Add animation
+        watchlistButton.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            watchlistButton.style.transform = 'scale(1)';
+        }, 200);
     } else {
         // Add to watchlist
         watchlist.push({
@@ -370,6 +431,12 @@ function toggleWatchlist() {
         watchlistButton.innerHTML = '<i class="fas fa-bookmark"></i> Remove from Watchlist';
         watchlistButton.classList.add('added');
         showToast('Added to watchlist!', 'success');
+        
+        // Add animation
+        watchlistButton.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            watchlistButton.style.transform = 'scale(1)';
+        }, 200);
     }
 }
 
@@ -425,18 +492,21 @@ function displayFavorites() {
     
     favoritesSection.classList.remove('hidden');
     
-    favorites.forEach(movie => {
+    favorites.forEach((movie, index) => {
         const movieCard = document.createElement('div');
         movieCard.className = 'movie-card';
         
+        // Add animation delay for each card
+        movieCard.style.animationDelay = `${index * 0.1}s`;
+        
         // Handle missing poster
-        const poster = movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/150x200?text=No+Image';
+        const poster = movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/150x200/cccccc/ffffff?text=No+Image';
         
         movieCard.innerHTML = `
-            <img src="${poster}" alt="${movie.Title}" class="movie-poster" onerror="this.src='https://via.placeholder.com/150x200?text=No+Image'">
+            <img src="${poster}" alt="${movie.Title}" class="movie-poster" onerror="this.src='https://via.placeholder.com/150x200/cccccc/ffffff?text=No+Image'">
             <div class="movie-info">
                 <h3 class="movie-title">${movie.Title}</h3>
-                <p class="movie-year">${movie.Year}</p>
+                <p class="movie-year"><i class="fas fa-calendar-alt"></i> ${movie.Year}</p>
             </div>
         `;
         
@@ -465,14 +535,34 @@ function showToast(message, type = 'success') {
     
     toastContainer.appendChild(toast);
     
+    // Add entrance animation
+    toast.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+        toast.style.transform = 'translateX(0)';
+    }, 10);
+    
     // Remove toast after animation
     setTimeout(() => {
-        toast.remove();
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
     }, 3000);
 }
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Movie Review App initialized');
+    console.log('🎬 Movie Review App initialized');
     displayFavorites();
+    
+    // Add animation to header
+    const header = document.querySelector('header');
+    header.style.opacity = '0';
+    header.style.transform = 'translateY(-20px)';
+    setTimeout(() => {
+        header.style.transition = 'all 0.5s ease';
+        header.style.opacity = '1';
+        header.style.transform = 'translateY(0)';
+    }, 100);
 });

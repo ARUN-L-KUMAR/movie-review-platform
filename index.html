@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Review & Rating Platform</title>
+    <title>🎬 Movie Review & Rating Platform</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1><i class="fas fa-film"></i> Movie Review & Rating Platform</h1>
+        <h1><i class="fas fa-clapperboard"></i> Movie Review Hub</h1>
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search for movies...">
+            <input type="text" id="searchInput" placeholder="Search for movies, series, or episodes...">
             <button id="searchButton"><i class="fas fa-search"></i> Search</button>
         </div>
         <!-- Loading indicator -->
         <div id="loadingIndicator" class="loading hidden">
-            <i class="fas fa-spinner fa-spin"></i> Searching...
+            <i class="fas fa-spinner"></i> Searching for amazing movies...
         </div>
     </header>
 
@@ -33,8 +35,8 @@
         <section id="movieResults" class="movie-grid">
             <!-- Movie cards will be dynamically inserted here -->
             <div class="placeholder">
-                <i class="fas fa-search fa-3x"></i>
-                <p>Search for movies to get started!</p>
+                <i class="fas fa-film fa-4x"></i>
+                <p>Search for movies to get started!<br><small>Find your next favorite film</small></p>
             </div>
         </section>
 
@@ -45,7 +47,7 @@
                     <!-- Movie details will be dynamically inserted here -->
                 </div>
                 <div class="rating-section">
-                    <h3>Rate this movie:</h3>
+                    <h3><i class="fas fa-star"></i> Rate this movie</h3>
                     <div class="star-rating" id="starRating">
                         <span class="star" data-rating="1">&#9733;</span>
                         <span class="star" data-rating="2">&#9733;</span>
@@ -53,7 +55,7 @@
                         <span class="star" data-rating="4">&#9733;</span>
                         <span class="star" data-rating="5">&#9733;</span>
                     </div>
-                    <textarea id="reviewText" placeholder="Write your review here..."></textarea>
+                    <textarea id="reviewText" placeholder="Share your thoughts about this movie..."></textarea>
                     <button id="submitReview"><i class="fas fa-paper-plane"></i> Submit Review</button>
                 </div>
                 <div class="actions-section">
@@ -65,7 +67,7 @@
                     </button>
                 </div>
                 <div id="userReviews">
-                    <h3>User Reviews:</h3>
+                    <h3><i class="fas fa-comments"></i> User Reviews</h3>
                     <!-- User reviews will be dynamically inserted here -->
                 </div>
             </div>
