@@ -10,6 +10,7 @@ Welcome to the Movie Review Platform! This guide will help you navigate and use 
 2. You'll see a search bar at the top of the page
 3. Type in the name of a movie you want to search for
 4. Click the "Search" button or press Enter
+5. Watch the loading indicator while results are fetched
 
 ## Viewing Movie Details
 
@@ -32,6 +33,23 @@ Welcome to the Movie Review Platform! This guide will help you navigate and use 
 1. Below the star rating, you'll see a text area
 2. Type your review in the text area
 3. Click the "Submit Review" button to save your rating and review
+4. You'll see a toast notification confirming your submission
+
+## Managing Favorites and Watchlist
+
+### Adding to Favorites
+1. In the movie details view, click the "Add to Favorites" button
+2. The button will change to "Remove from Favorites" and turn red
+3. Your favorite movies will appear in the "My Favorites" section at the top
+
+### Adding to Watchlist
+1. In the movie details view, click the "Add to Watchlist" button
+2. The button will change to "Remove from Watchlist" and darken
+3. Manage your watchlist the same way as favorites
+
+### Viewing Favorites
+1. Click on any movie in your favorites section to view its details
+2. Remove movies from favorites using the "Remove from Favorites" button
 
 ## Viewing Reviews
 
@@ -44,9 +62,10 @@ Welcome to the Movie Review Platform! This guide will help you navigate and use 
 
 ## Data Persistence
 
-All ratings and reviews are saved in your browser's Local Storage:
+All ratings, reviews, favorites, and watchlist items are saved in your browser's Local Storage:
 - Your data persists even after closing the browser
 - Reviews are specific to each movie
+- Favorites and watchlist are stored separately
 - Data is stored locally on your device
 
 ## Troubleshooting
@@ -64,6 +83,10 @@ All ratings and reviews are saved in your browser's Local Storage:
 - Make sure your browser supports Local Storage
 - Check that you've selected a star rating before submitting
 - Ensure you've entered text in the review field
+
+### Favorites/Watchlist Not Working
+- Verify that Local Storage is enabled in your browser
+- Check the browser console for any error messages
 
 ## Browser Compatibility
 
@@ -92,12 +115,21 @@ To use the movie search feature, you need an OMDB API key:
 - Data is stored in browser Local Storage
 
 ### Local Storage Format
-Reviews are stored with the key format: `reviews_{imdbID}`
+- Reviews are stored with the key format: `reviews_{imdbID}`
+- Favorites are stored with the key: `favorites`
+- Watchlist is stored with the key: `watchlist`
+
 Each review contains:
 - id: Unique identifier
 - rating: Star rating (1-5)
 - text: Review content
 - date: Submission date
+
+Favorites and watchlist items contain:
+- imdbID: Movie identifier
+- Title: Movie title
+- Year: Release year
+- Poster: Poster URL
 
 ## Support
 

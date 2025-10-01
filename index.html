@@ -5,20 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Review & Rating Platform</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>Movie Review & Rating Platform</h1>
+        <h1><i class="fas fa-film"></i> Movie Review & Rating Platform</h1>
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search for movies...">
-            <button id="searchButton">Search</button>
+            <button id="searchButton"><i class="fas fa-search"></i> Search</button>
+        </div>
+        <!-- Loading indicator -->
+        <div id="loadingIndicator" class="loading hidden">
+            <i class="fas fa-spinner fa-spin"></i> Searching...
         </div>
     </header>
 
     <main>
+        <!-- Favorites section -->
+        <section id="favoritesSection" class="favorites-section hidden">
+            <h2><i class="fas fa-heart"></i> My Favorites</h2>
+            <div id="favoritesContainer" class="movie-grid favorites-grid">
+                <!-- Favorite movies will be dynamically inserted here -->
+            </div>
+        </section>
+
         <section id="movieResults" class="movie-grid">
             <!-- Movie cards will be dynamically inserted here -->
             <div class="placeholder">
+                <i class="fas fa-search fa-3x"></i>
                 <p>Search for movies to get started!</p>
             </div>
         </section>
@@ -39,7 +54,15 @@
                         <span class="star" data-rating="5">&#9733;</span>
                     </div>
                     <textarea id="reviewText" placeholder="Write your review here..."></textarea>
-                    <button id="submitReview">Submit Review</button>
+                    <button id="submitReview"><i class="fas fa-paper-plane"></i> Submit Review</button>
+                </div>
+                <div class="actions-section">
+                    <button id="favoriteButton" class="favorite-button">
+                        <i class="far fa-heart"></i> Add to Favorites
+                    </button>
+                    <button id="watchlistButton" class="watchlist-button">
+                        <i class="far fa-bookmark"></i> Add to Watchlist
+                    </button>
                 </div>
                 <div id="userReviews">
                     <h3>User Reviews:</h3>
@@ -48,6 +71,9 @@
             </div>
         </section>
     </main>
+
+    <!-- Toast notification container -->
+    <div id="toastContainer" class="toast-container"></div>
 
     <script src="script.js"></script>
 </body>

@@ -8,8 +8,11 @@ A responsive web application that allows users to search for movies, view detail
 - View detailed movie information (title, year, poster, plot, rating, etc.)
 - Rate movies with a 1-5 star system
 - Write and submit short reviews
+- Add movies to favorites and watchlist
 - Persistent storage using Local Storage
 - Responsive design that works on desktop and mobile devices
+- Toast notifications for user feedback
+- Loading indicators for better UX
 
 ## Technologies Used
 
@@ -18,6 +21,7 @@ A responsive web application that allows users to search for movies, view detail
 - JavaScript (ES6+)
 - OMDB API for movie data
 - Local Storage for data persistence
+- Font Awesome for icons
 
 ## Setup Instructions
 
@@ -57,7 +61,26 @@ movie-review-platform/
 4. Rate the movie using the star rating system (1-5 stars)
 5. Write a review in the text area
 6. Click "Submit Review" to save your rating and review
-7. All reviews are stored in your browser's Local Storage
+7. Add movies to your favorites or watchlist using the buttons
+8. All reviews and favorites are stored in your browser's Local Storage
+
+## Enhanced Features
+
+### Favorites System
+- Click "Add to Favorites" to save a movie for quick access
+- View your favorites in the "My Favorites" section at the top
+- Click on any favorite movie to view its details
+
+### Watchlist
+- Click "Add to Watchlist" to save movies you want to watch later
+- Manage your watchlist through the same interface
+
+### Improved UI/UX
+- Loading indicators during API requests
+- Toast notifications for user feedback
+- Enhanced movie detail view with more information
+- Better responsive design for mobile devices
+- Icons for better visual cues
 
 ## API Key Configuration
 
@@ -72,10 +95,11 @@ To use the OMDB API, you need to obtain a free API key:
 
 ## Local Storage
 
-All ratings and reviews are stored in the browser's Local Storage, keyed by movie ID. This means:
+All ratings, reviews, favorites, and watchlist items are stored in the browser's Local Storage, keyed by movie ID. This means:
 
 - Your reviews persist even after closing the browser
 - Each movie maintains its own set of reviews
+- Favorites and watchlist are saved locally
 - Data is stored locally and is specific to your browser
 
 ## Contributing
@@ -95,3 +119,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Movie data provided by [OMDB API](http://www.omdbapi.com/)
 - Placeholder images from [via.placeholder.com](https://via.placeholder.com/)
+- Icons from [Font Awesome](https://fontawesome.com/)
