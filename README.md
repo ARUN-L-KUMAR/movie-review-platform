@@ -14,6 +14,7 @@ A stunning, responsive web application that allows users to search for movies, v
 - 📢 Toast notifications for user feedback
 - ⏳ Loading indicators for better UX
 - 🎨 Beautiful, modern UI with animations and gradients
+- 🏠 Enhanced home page with hero section and featured movies
 
 ## 🛠 Technologies Used
 
@@ -47,7 +48,7 @@ A stunning, responsive web application that allows users to search for movies, v
 
 ```
 movie-review-platform/
-├── index.html          # Main HTML file
+├── index.html          # Main HTML file with enhanced home page
 ├── style.css           # Stylesheet with responsive design
 ├── script.js           # JavaScript functionality
 ├── README.md           # This file
@@ -57,20 +58,28 @@ movie-review-platform/
 
 ## 🎯 Usage
 
-1. Enter a movie title in the search bar and click "Search"
-2. Browse through the search results with beautiful card animations
-3. Click "View Details" on any movie to see more information
-4. Rate the movie using the star rating system (1-5 stars)
-5. Write a review in the text area
-6. Click "Submit Review" to save your rating and review
-7. Add movies to your favorites or watchlist using the buttons
-8. All reviews and favorites are stored in your browser's Local Storage
+1. Visit the enhanced home page with hero section and featured movies
+2. Explore featured movies in the horizontal scroll section
+3. Enter a movie title in the search bar and click "Search"
+4. Browse through the search results with beautiful card animations
+5. Click "View Details" on any movie to see more information
+6. Rate the movie using the star rating system (1-5 stars)
+7. Write a review in the text area
+8. Click "Submit Review" to save your rating and review
+9. Add movies to your favorites or watchlist using the buttons
+10. All reviews and favorites are stored in your browser's Local Storage
 
 ## ✨ Enhanced Features
 
+### Home Page Enhancements
+- Beautiful hero section with background image and search functionality
+- Animated statistics counters showing movies, users, and reviews
+- Featured movies section with horizontal scrolling
+- Professional footer with quick links and social media
+
 ### Favorites System
 - Click "Add to Favorites" to save a movie for quick access
-- View your favorites in the "My Favorites" section at the top
+- View your favorites in the "My Favorites" section
 - Click on any favorite movie to view its details
 
 ### Watchlist
@@ -102,6 +111,7 @@ movie-review-platform/
 - Toast notification entrance/exit animations
 - Modal open/close animations
 - Loading spinner animations
+- Animated statistics counters
 
 ## 🔑 API Key Configuration
 

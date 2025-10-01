@@ -11,34 +11,73 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1><i class="fas fa-clapperboard"></i> Movie Review Hub</h1>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search for movies, series, or episodes...">
-            <button id="searchButton"><i class="fas fa-search"></i> Search</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><i class="fas fa-clapperboard"></i> Movie Review Hub</h1>
+            <p class="hero-subtitle">Discover, Rate, and Review Your Favorite Movies</p>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for movies, series, or episodes...">
+                <button id="searchButton"><i class="fas fa-search"></i> Search</button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <i class="fas fa-film"></i>
+                    <span class="stat-number" id="movieCount">1000+</span>
+                    <span class="stat-label">Movies</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span class="stat-number" id="userCount">50K+</span>
+                    <span class="stat-label">Users</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <span class="stat-number" id="reviewCount">200K+</span>
+                    <span class="stat-label">Reviews</span>
+                </div>
+            </div>
         </div>
         <!-- Loading indicator -->
         <div id="loadingIndicator" class="loading hidden">
             <i class="fas fa-spinner"></i> Searching for amazing movies...
         </div>
-    </header>
+    </section>
 
+    <!-- Featured Movies Section -->
+    <section class="featured-section">
+        <div class="container">
+            <h2><i class="fas fa-fire"></i> Trending Movies</h2>
+            <div class="featured-movies" id="featuredMovies">
+                <!-- Featured movies will be dynamically inserted here -->
+                <div class="featured-placeholder">
+                    <p>Featured movies loading...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
     <main>
         <!-- Favorites section -->
         <section id="favoritesSection" class="favorites-section hidden">
-            <h2><i class="fas fa-heart"></i> My Favorites</h2>
-            <div id="favoritesContainer" class="movie-grid favorites-grid">
-                <!-- Favorite movies will be dynamically inserted here -->
+            <div class="container">
+                <h2><i class="fas fa-heart"></i> My Favorites</h2>
+                <div id="favoritesContainer" class="movie-grid favorites-grid">
+                    <!-- Favorite movies will be dynamically inserted here -->
+                </div>
             </div>
         </section>
 
-        <section id="movieResults" class="movie-grid">
-            <!-- Movie cards will be dynamically inserted here -->
-            <div class="placeholder">
-                <i class="fas fa-film fa-4x"></i>
-                <p>Search for movies to get started!<br><small>Find your next favorite film</small></p>
-            </div>
-        </section>
+        <div class="container">
+            <section id="movieResults" class="movie-grid">
+                <!-- Movie cards will be dynamically inserted here -->
+                <div class="placeholder">
+                    <i class="fas fa-film fa-4x"></i>
+                    <p>Search for movies to get started!<br><small>Find your next favorite film</small></p>
+                </div>
+            </section>
+        </div>
 
         <section id="movieModal" class="modal hidden">
             <div class="modal-content">
@@ -73,6 +112,39 @@
             </div>
         </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-clapperboard"></i> Movie Review Hub</h3>
+                    <p>Your ultimate destination for movie reviews, ratings, and recommendations.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-fire"></i> Trending</a></li>
+                        <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
+                        <li><a href="#"><i class="fas fa-bookmark"></i> Watchlist</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Movie Review Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- Toast notification container -->
     <div id="toastContainer" class="toast-container"></div>

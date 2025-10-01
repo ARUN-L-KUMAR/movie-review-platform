@@ -17,6 +17,7 @@ const loadingIndicator = document.getElementById('loadingIndicator');
 const favoritesSection = document.getElementById('favoritesSection');
 const favoritesContainer = document.getElementById('favoritesContainer');
 const toastContainer = document.getElementById('toastContainer');
+const featuredMovies = document.getElementById('featuredMovies');
 
 // Global Variables
 let selectedMovieId = null;
@@ -75,6 +76,131 @@ starRating.addEventListener('click', (e) => {
 submitReview.addEventListener('click', submitUserReview);
 favoriteButton.addEventListener('click', toggleFavorite);
 watchlistButton.addEventListener('click', toggleWatchlist);
+
+// Initialize the app
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🎬 Movie Review App initialized');
+    displayFavorites();
+    loadFeaturedMovies();
+    
+    // Add animation to header
+    const header = document.querySelector('header');
+    if (header) {
+        header.style.opacity = '0';
+        header.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+            header.style.transition = 'all 0.5s ease';
+            header.style.opacity = '1';
+            header.style.transform = 'translateY(0)';
+        }, 100);
+    }
+    
+    // Animate stats counter
+    animateStats();
+});
+
+// Animate stats counters
+function animateStats() {
+    const movieCount = document.getElementById('movieCount');
+    const userCount = document.getElementById('userCount');
+    const reviewCount = document.getElementById('reviewCount');
+    
+    if (movieCount) {
+        let count = 1000;
+        const interval = setInterval(() => {
+            count += Math.floor(Math.random() * 10);
+            movieCount.textContent = count + '+';
+            if (count >= 5000) clearInterval(interval);
+        }, 50);
+    }
+    
+    if (userCount) {
+        let count = 50000;
+        const interval = setInterval(() => {
+            count += Math.floor(Math.random() * 50);
+            userCount.textContent = (count / 1000).toFixed(1) + 'K+';
+            if (count >= 100000) clearInterval(interval);
+        }, 100);
+    }
+    
+    if (reviewCount) {
+        let count = 200000;
+        const interval = setInterval(() => {
+            count += Math.floor(Math.random() * 100);
+            reviewCount.textContent = (count / 1000).toFixed(0) + 'K+';
+            if (count >= 500000) clearInterval(interval);
+        }, 75);
+    }
+}
+
+// Load featured movies
+async function loadFeaturedMovies() {
+    // Featured movies list (popular movies)
+    const featuredMovieTitles = [
+        'The Shawshank Redemption', 
+        'The Godfather', 
+        'The Dark Knight', 
+        'Pulp Fiction', 
+        'Forrest Gump',
+        'Inception',
+        'The Matrix',
+        'Interstellar'
+    ];
+    
+    try {
+        const moviePromises = featuredMovieTitles.map(title => 
+            fetch(`${API_URL}&t=${encodeURIComponent(title)}`).then(res => res.json())
+        );
+        
+        const movies = await Promise.all(moviePromises);
+        displayFeaturedMovies(movies.filter(movie => movie.Response === 'True'));
+    } catch (error) {
+        console.error('Error loading featured movies:', error);
+        featuredMovies.innerHTML = `
+            <div class="featured-placeholder">
+                <p>Unable to load featured movies at the moment.</p>
+            </div>
+        `;
+    }
+}
+
+// Display Featured Movies
+function displayFeaturedMovies(movies) {
+    featuredMovies.innerHTML = '';
+    
+    movies.forEach((movie, index) => {
+        const movieCard = document.createElement('div');
+        movieCard.className = 'featured-movie-card';
+        
+        // Handle missing poster
+        const poster = movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/250x350/cccccc/ffffff?text=No+Image';
+        
+        movieCard.innerHTML = `
+            <img src="${poster}" alt="${movie.Title}" class="featured-movie-poster" onerror="this.src='https://via.placeholder.com/250x350/cccccc/ffffff?text=No+Image'">
+            <div class="featured-movie-info">
+                <h3 class="featured-movie-title">${movie.Title}</h3>
+                <p class="featured-movie-year">${movie.Year}</p>
+                <div class="featured-movie-rating">
+                    <i class="fas fa-star"></i>
+                    <span>${movie.imdbRating || 'N/A'}</span>
+                </div>
+                <button class="details-button" data-imdbid="${movie.imdbID}">
+                    <i class="fas fa-info-circle"></i> View Details
+                </button>
+            </div>
+        `;
+        
+        featuredMovies.appendChild(movieCard);
+    });
+    
+    // Add event listeners to detail buttons
+    document.querySelectorAll('.featured-movie-card .details-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const imdbID = button.getAttribute('data-imdbid');
+            showMovieDetails(imdbID);
+        });
+    });
+}
 
 // Search Movies Function
 async function searchMovies() {
@@ -550,19 +676,3 @@ function showToast(message, type = 'success') {
         }, 300);
     }, 3000);
 }
-
-// Initialize the app
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('🎬 Movie Review App initialized');
-    displayFavorites();
-    
-    // Add animation to header
-    const header = document.querySelector('header');
-    header.style.opacity = '0';
-    header.style.transform = 'translateY(-20px)';
-    setTimeout(() => {
-        header.style.transition = 'all 0.5s ease';
-        header.style.opacity = '1';
-        header.style.transform = 'translateY(0)';
-    }, 100);
-});
