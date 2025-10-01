@@ -1,0 +1,29 @@
+{
+  "name": "movie-review-platform",
+  "version": "1.0.0",
+  "description": "A responsive web application for searching movies, viewing details, rating movies, and writing reviews with Local Storage persistence.",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "movie",
+    "review",
+    "rating",
+    "omdb",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "author": "ARUN-L-KUMAR",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ARUN-L-KUMAR/movie-review-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ARUN-L-KUMAR/movie-review-platform/issues"
+  },
+  "homepage": "https://github.com/ARUN-L-KUMAR/movie-review-platform#readme"
+}
